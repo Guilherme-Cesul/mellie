@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mellie - A Arte do Efêmero</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Estilos personalizados para o tema branco luxo */
+        body {
+            background-color: #FDFDFD;
+            color: #2d2d2d;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .text-gold { color: #B8860B; }
+        .bg-gold { background-color: #B8860B; }
+        .border-gold { border-color: #B8860B; }
+        .text-ruby { color: #9B111E; }
+        
+        /* Efeito de sobreposição no vídeo */
+        .video-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(253,253,253,1) 0%, rgba(253,253,253,0.5) 50%, rgba(253,253,253,1) 100%);
+            z-index: 1;
+        }
+
+        /* Animações de entrada */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    
+    <script>
+        // Lógica da galeria
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('galleryData', () => ({
+                currentIndex: 0,
+                activeCollabName: 'versace', // Collab inicial
+                collabs: {
+                    'versace': {
+                        title: 'Mellie & Versace',
+                        desc: 'Opulência e audácia em uma única peça. O clássico padrão barroco da Versace é meticulosamente recriado em ouro sobre um fundo preto profundo.',
+                        // LINHA CORRIGIDA ABAIXO
+                        images: ['img/versace.jpeg'] 
+                    },
+                    'chanel': {
+                        title: 'Mellie & Chanel',
+                        desc: 'Uma homenagem à elegância clássica. Cobertura em branco perolado com detalhes dourados, espelhando a sofisticação atemporal da Maison.',
+                        images: ['img/gucci.jpeg']
+                    },
+                    'dior': {
+                        title: 'Mellie & Dior Sauvage',
+                        desc: 'Inspirado no crepúsculo do deserto. Cobertura em azul profundo com uma textura craquelada em ouro, evocando mistério e liberdade.',
+                        images: ['img/dior.jpeg']
+                    },
+                    'tiffany': {
+                        title: 'Mellie & Tiffany & Co.',
+                        desc: 'A elegância encontra a icônica joalheria. Um coração verde esmeralda com linhas douradas, refletindo a precisão e o luxo de uma joia rara.',
+                        images: ['img/tiffany.jpeg']
+                    },
+                    'nike': {
+                        title: 'Mellie & Air Jordan 1',
+                        desc: 'A cultura sneaker encontra a alta confeitaria. Morango cravejado de cristais de açúcar, ao lado do icônico Air Jordan 1 "Chicago".',
+                        images: ['img/nike.jpeg']
+                    },
+                    'apple': {
+                        title: 'Mellie & Apple',
+                        desc: 'Minimalismo, tecnologia e sabor se fundem. Um design que reflete a precisão e a estética limpa da Apple, com uma grade dourada sobre azul noturno.',
+                        images: ['img/apple.jpeg']
+                    }
+                },
+                get activeCollab() { return this.collabs[this.activeCollabName]; },
+                setActiveCollab(name) { this.activeCollabName = name; this.currentIndex = 0; },
+                nextImage() { this.currentIndex = (this.currentIndex + 1) % this.activeCollab.images.length; },
+                prevImage() { this.currentIndex = (this.currentIndex - 1 + this.activeCollab.images.length) % this.activeCollab.images.length; }
+            }));
+        });
+
+        // Lógica das animações de scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</head>
+<body class="antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm transition-all duration-300 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="#home" class="text-4xl font-bold text-gold font-serif tracking-wider">MELLIE</a>
+            <div class="hidden md:flex items-center space-x-10 text-sm tracking-widest uppercase">
+                <a href="#historia" class="text-gray-700 hover:text-gold transition-colors duration-300">A Filosofia</a>
+                <a href="#collabs" class="text-gray-700 hover:text-gold transition-colors duration-300">Criações</a>
+                <a href="#comunidade" class="text-gray-700 hover:text-gold transition-colors duration-300">Comunidade</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="h-screen w-full relative flex flex-col justify-center items-center text-center overflow-hidden pt-20">
+            <div class="absolute top-0 left-0 w-full h-full">
+                <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-liquid-chocolate-dripping-from-a-spoon-426-large.mp4" type="video/mp4">
+                    Seu navegador não suporta o vídeo.
+                </video>
+                <div class="absolute inset-0 video-overlay"></div>
+            </div>
+            <div class="relative z-10 p-6">
+                <h1 class="text-6xl md:text-8xl font-semibold text-gray-900 font-serif">Mellie</h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-700 tracking-wider">A Arte do Efêmero</p>
+            </div>
+        </section>
+
+        <section id="historia" class="py-24 md:py-32 bg-[#FDFDFD]">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-7xl font-serif text-gold reveal">A Filosofia Mellie</h2>
+                    <p class="mt-6 text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 200ms;">Não criamos sobremesas. Esculpimos jóias comestíveis, destinadas a momentos únicos e irreplicáveis.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div class="reveal" style="transition-delay: 400ms;">
+                        <img src="img/mellie.jpeg" alt="Logo Mellie" class="rounded-lg w-full h-full object-contain">
+                    </div>
+                    <div class="text-lg text-gray-700 space-y-6 reveal" style="transition-delay: 600ms;">
+                        <h3 class="text-4xl font-serif text-gray-800">Nascida da Exclusividade</h3>
+                        <p>Mellie nasceu da convicção de que o verdadeiro luxo reside na efemeridade. Cada fruto é colhido à mão, em seu ápice de perfeição. O coração de brigadeiro de Ninho artesanal é um segredo guardado, e a casca de açúcar rubi é um tributo à paixão.</p>
+                        <p>Limitamos a nossa criação a apenas <strong class="text-gold">cinco peças por semana</strong>, pois a verdadeira exclusividade não pode ser massificada. Cada obra é selada com um Certificado de Autenticidade, eternizando o seu momento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="collabs" class="py-24 md:py-32 bg-gray-50" x-data="galleryData">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-5xl md:text-7xl font-serif text-gold mb-20 reveal">Criações Memoráveis</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="w-full h-auto flex items-center justify-center p-4 relative h-[500px] lg:h-[600px] reveal" style="transition-delay: 200ms;">
+                        <template x-for="(image, index) in activeCollab.images" :key="index">
+                            <img :src="image" :alt="activeCollab.title" class="absolute inset-0 w-full h-full object-contain transition-opacity duration-500" x-show="currentIndex === index" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+                        </template>
+                        <div x-show="activeCollab.images.length > 1" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-4 z-10">
+                            <button @click="prevImage()" class="bg-white/70 p-2 rounded-full shadow-md hover:scale-110 transition-transform"><svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                            <button @click="nextImage()" class="bg-white/70 p-2 rounded-full shadow-md hover:scale-110 transition-transform"><svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                        </div>
+                    </div>
+                    <div class="text-left text-gray-800 reveal" style="transition-delay: 400ms;">
+                        <h3 class="text-4xl md:text-5xl font-serif text-gold mb-4" x-text="activeCollab.title"></h3>
+                        <p class="text-lg text-gray-600 mb-10 font-light" x-text="activeCollab.desc"></p>
+                        <div class="space-y-4">
+                            <template x-for="(collab, name) in collabs" :key="name">
+                                <div @click="setActiveCollab(name)" class="cursor-pointer p-4 transition-all duration-300 border-l-4" :class="{'bg-white shadow-lg rounded-r-lg border-gold': activeCollabName === name, 'border-transparent opacity-60 hover:opacity-100': activeCollabName !== name}">
+                                    <h4 class="text-2xl font-serif" x-text="collab.title"></h4>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comunidade" class="py-24 md:py-32 bg-[#FDFDFD]">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                     <div class="reveal">
+                         <h2 class="text-5xl md:text-7xl font-serif text-gold">O Círculo Mellie</h2>
+                         <p class="mt-6 text-xl text-gray-600">Um convite a um grupo seleto de apreciadores da arte, do luxo e de momentos extraordinários. A participação é concedida através de um processo de curadoria para garantir a partilha da nossa visão.</p>
+                          <a href="#formulario-comunidade" class="mt-8 inline-block bg-gold text-white px-12 py-4 text-lg tracking-widest uppercase hover:opacity-90 transition-opacity duration-300">Solicitar Acesso</a>
+                     </div>
+                     <div class="reveal" style="transition-delay: 200ms;">
+                         <img src="img/gucci.jpeg" alt="Comunidade Mellie" class="rounded-lg shadow-2xl w-full h-full object-cover">
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formulario-comunidade" class="py-24 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6 text-center max-w-2xl">
+                <h2 class="text-4xl md:text-5xl font-serif text-gold mb-6 reveal">Formulário de Verificação</h2>
+                <p class="text-lg text-gray-600 mb-12 reveal" style="transition-delay: 200ms;">Submeta a sua solicitação para avaliação pela nossa curadoria.</p>
+                <form action="#" method="POST" class="space-y-8 reveal" style="transition-delay: 400ms;">
+                    <input type="text" placeholder="Nome Completo" class="w-full bg-white border border-gray-300 focus:border-gold p-4 text-gray-800 outline-none transition-colors duration-300 rounded-lg">
+                    <input type="email" placeholder="E-mail" class="w-full bg-white border border-gray-300 focus:border-gold p-4 text-gray-800 outline-none transition-colors duration-300 rounded-lg">
+                    <input type="url" placeholder="Perfil do Instagram (URL)" class="w-full bg-white border border-gray-300 focus:border-gold p-4 text-gray-800 outline-none transition-colors duration-300 rounded-lg">
+                    <textarea placeholder="Por que deseja fazer parte da Comunidade Mellie?" rows="4" class="w-full bg-white border border-gray-300 focus:border-gold p-4 text-gray-800 outline-none transition-colors duration-300 resize-none rounded-lg"></textarea>
+                    <button type="submit" class="w-full bg-gold text-white py-4 text-lg tracking-widest uppercase hover:opacity-90 transition-opacity duration-300 rounded-lg">
+                        Enviar Solicitação
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-4xl font-serif text-gold mb-6">MELLIE</p>
+            <div class="flex justify-center space-x-8 my-8">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Instagram"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.04.022-4.484.038-6.08.098C4.604 2.22 3.52 2.644 2.646 3.52c-.878.878-1.3 1.96-1.424 3.552C1.16 8.67 1.144 9.113 1.122 12.155c-.023 3.042-.038 3.484.022 6.08.122 1.594.546 2.678 1.424 3.552.877.878 1.96 1.3 3.552 1.424 1.597.06 2.04.076 6.08.098 4.04.022 4.484.038 6.08-.098 1.594-.122 2.678-.546 3.552-1.424.878-.877 1.3-1.96 1.424-3.552.06-1.597.076-2.04.098-6.08.022-3.042.038-3.484-.022-6.08-.122-1.594-.546-2.678-1.424-3.552C20.48 2.646 19.4 2.22 17.8 2.1c-1.597-.06-2.04-.076-6.08-.098h-.405zM12 6.825a5.175 5.175 0 100 10.35 5.175 5.175 0 000-10.35zM12 15a3 3 0 110-6 3 3 0 010 6zm6.3-8.175a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z" clip-rule="evenodd" /></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="TikTok"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.8-1.59-1.87-2.32-4.2-1.86-6.33.32-1.45 1.11-2.77 2.11-3.8.75-.75 1.6-1.36 2.48-1.82.01-3.34.01-6.67.02-10.01.04-1.51.52-3.01 1.4-4.25C10.15 1.01 11.32.33 12.525.02zM15.41 6.94c-1.11-.02-2.22-.01-3.33-.02v1.55c1.11.01 2.22.01 3.33.02-.04-1.02-.01-1.55.01-1.55z"/></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="LinkedIn"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-8.29 13.29V9.42H8.29v6.87h2.42zm-1.21-7.86a1.43 1.43 0 1 0 0-2.86 1.43 1.43 0 0 0 0 2.86zM16.71 16.29h-2.42v-3.4c0-.81-.02-1.86-1.13-1.86-1.13 0-1.31.89-1.31 1.8v3.46H9.42V9.42h2.32v1.06h.03c.32-.6 1.11-1.23 2.29-1.23 2.45 0 2.9 1.61 2.9 3.7v4.34z"/></svg></a>
+            </div>
+            <p class="text-sm text-gray-500 mt-10">&copy; <span id="year"></span> Mellie. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Atualiza o ano no rodapé
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
