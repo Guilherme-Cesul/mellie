@@ -56,6 +56,7 @@
                 currentIndex: 0,
                 activeCollabName: 'versace', // Collab inicial
                 collabs: {
+                    // ATUALIZAÇÃO: A COLLAB 'APPLE' FOI REMOVIDA DAQUI
                     'versace': {
                         title: 'Mellie & Versace',
                         desc: 'Opulência e audácia em uma única peça. O clássico padrão barroco da Versace é meticulosamente recriado em ouro sobre um fundo preto profundo.',
@@ -80,11 +81,6 @@
                         title: 'Mellie & Air Jordan 1',
                         desc: 'A cultura sneaker encontra a alta confeitaria. Morango cravejado de cristais de açúcar, ao lado do icônico Air Jordan 1 "Chicago".',
                         images: ['images/nike.jpeg']
-                    },
-                    'apple': {
-                        title: 'Mellie & Apple',
-                        desc: 'Minimalismo, tecnologia e sabor se fundem. Um design que reflete a precisão e a estética limpa da Apple, com uma grade dourada sobre azul noturno.',
-                        images: ['images/apple.jpeg']
                     }
                 },
                 get activeCollab() { return this.collabs[this.activeCollabName]; },
@@ -133,8 +129,9 @@
                 <div class="absolute inset-0 video-overlay"></div>
             </div>
             <div class="relative z-10 p-6">
-                <h1 class="text-6xl md:text-8xl font-semibold text-gray-900 font-serif">Mellie</h1>
-                <p class="mt-4 text-xl md:text-2xl text-gray-700 tracking-wider">A Arte do Efêmero</p>
+                <div class="w-full max-w-lg mx-auto rounded-2xl overflow-hidden shadow-lg">
+                    <img src="images/logo.jpeg" alt="Logo Mellie - Uma joia efêmera, um instante eternizado" class="w-full h-auto">
+                </div>
             </div>
         </section>
 
@@ -156,8 +153,24 @@
                 </div>
             </div>
         </section>
+        
+        <section id="certificado" class="py-24 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div class="text-lg text-gray-700 space-y-6 reveal" style="transition-delay: 200ms;">
+                        <h2 class="text-5xl md:text-7xl font-serif text-gold">O Selo da Eternidade</h2>
+                        <h3 class="text-3xl font-serif text-gray-800">Mais que um doce, um colecionável.</h3>
+                        <p>Cada obra Mellie é acompanhada por um Certificado de Autenticidade físico, gravado com seu nome e o número único da sua peça. Este não é apenas um papel, é a prova de que aquele instante pertence a você.</p>
+                        <p>No certificado, você encontrará um <strong class="text-gold">QR Code exclusivo</strong>. Ele é um portal para um vídeo privado e emotivo, que revela os bastidores e a arte por trás da criação da sua joia comestível, tornando a experiência tão única quanto o sabor.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 400ms;">
+                        <img src="images/nike.jpeg" alt="Certificado de Autenticidade Mellie" class="rounded-lg w-full h-full object-cover shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="collabs" class="py-24 md:py-32 bg-gray-50" x-data="galleryData">
+        <section id="collabs" class="py-24 md:py-32 bg-[#FDFDFD]" x-data="galleryData">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-5xl md:text-7xl font-serif text-gold mb-20 reveal">Criações Memoráveis</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -185,22 +198,83 @@
             </div>
         </section>
 
-        <section id="comunidade" class="py-24 md:py-32 bg-[#FDFDFD]">
-            <div class="container mx-auto px-6 max-w-6xl">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                     <div class="reveal">
-                         <h2 class="text-5xl md:text-7xl font-serif text-gold">O Círculo Mellie</h2>
-                         <p class="mt-6 text-xl text-gray-600">Um convite a um grupo seleto de apreciadores da arte, do luxo e de momentos extraordinários. A participação é concedida através de um processo de curadoria para garantir a partilha da nossa visão.</p>
-                          <a href="#formulario-comunidade" class="mt-8 inline-block bg-gold text-white px-12 py-4 text-lg tracking-widest uppercase hover:opacity-90 transition-opacity duration-300">Solicitar Acesso</a>
-                     </div>
-                     <div class="reveal" style="transition-delay: 200ms;">
-                        <img src="images/gucci.jpeg" alt="Comunidade Mellie" class="rounded-lg shadow-2xl w-full h-full object-cover">
-                     </div>
+        <section id="collab-nft" class="py-24 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                     <div class="reveal" style="transition-delay: 400ms;">
+                        <img src="images/apple.jpeg" alt="Collab Mellie & Apple NFT" class="rounded-lg w-full h-full object-cover shadow-2xl">
+                    </div>
+                    <div class="text-lg text-gray-700 space-y-6 reveal" style="transition-delay: 200ms;">
+                        <h2 class="text-5xl md:text-7xl font-serif text-gold">Mellie & Apple</h2>
+                        <h3 class="text-3xl font-serif text-gray-800">A Primeira Joia Comestível em NFT</h3>
+                        <p>Indo além do sabor, a collab Mellie & Apple representa um marco: a primeira joia comestível autenticada em blockchain. Cada peça desta coleção exclusiva é um ativo digital único, um NFT que garante sua procedência e raridade.</p>
+                        <p>O QR Code do seu certificado não mostra a confecção do doce, mas sim o momento em que seu NFT foi criado e registrado — um vídeo do programador que eternizou sua obra no universo digital. É a fusão definitiva entre artesanato, luxo e tecnologia.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="formulario-comunidade" class="py-24 md:py-32 bg-gray-50">
+        <section id="comunidade" class="py-24 md:py-32 bg-[#FDFDFD]">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="reveal">
+                            <h2 class="text-5xl md:text-7xl font-serif text-gold">O Círculo Mellie</h2>
+                            <p class="mt-6 text-xl text-gray-600">Um convite a um grupo seleto de apreciadores da arte, do luxo e de momentos extraordinários. A participação é concedida através de um processo de curadoria para garantir a partilha da nossa visão.</p>
+                            <a href="#formulario-comunidade" class="mt-8 inline-block bg-gold text-white px-12 py-4 text-lg tracking-widest uppercase hover:opacity-90 transition-opacity duration-300">Solicitar Acesso</a>
+                        </div>
+                        <div class="reveal" style="transition-delay: 200ms;">
+                            <img src="images/gucci.jpeg" alt="Comunidade Mellie" class="rounded-lg shadow-2xl w-full h-full object-cover">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pontos-de-venda" class="py-24 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-7xl font-serif text-gold reveal">Pontos de Venda Exclusivos</h2>
+                    <p class="mt-6 text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 200ms;">Encontre a experiência Mellie mais próxima de você.</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-stretch">
+                    <div class="w-full lg:w-1/3 reveal" style="transition-delay: 400ms;">
+                        <div class="space-y-8 h-full">
+                            <div class="p-2">
+                                <h3 class="text-2xl font-serif text-gray-800">Mellie - Pátio Batel</h3>
+                                <p class="text-gray-600 mt-1">Av. do Batel, 1868 - Batel, Curitiba - PR</p>
+                            </div>
+                            <hr>
+                            <div class="p-2">
+                                <h3 class="text-2xl font-serif text-gray-800">Mellie - VillageMall</h3>
+                                <p class="text-gray-600 mt-1">Av. das Américas, 3900 - Barra da Tijuca, Rio de Janeiro - RJ</p>
+                            </div>
+                            <hr>
+                            <div class="p-2">
+                                <h3 class="text-2xl font-serif text-gray-800">Mellie - Shopping Cidade Jardim</h3>
+                                <p class="text-gray-600 mt-1">Av. Magalhães de Castro, 12000 - Cidade Jardim, São Paulo - SP</p>
+                            </div>
+                            <hr>
+                            <div class="p-2">
+                                <h3 class="text-2xl font-serif text-gray-800">Mellie - Beiramar Shopping</h3>
+                                <p class="text-gray-600 mt-1">R. Bocaiúva, 2468 - Centro, Florianópolis - SC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-2/3 h-[500px] reveal" style="transition-delay: 600ms;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2664971.219894488!2d-46.88451199321287!3d-24.316888079639147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1692314512345!5m2!1spt-BR!2sbr" 
+                            class="w-full h-full border-0 rounded-lg shadow-xl" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="formulario-comunidade" class="py-24 md:py-32 bg-[#FDFDFD]">
             <div class="container mx-auto px-6 text-center max-w-2xl">
                 <h2 class="text-4xl md:text-5xl font-serif text-gold mb-6 reveal">Formulário de Verificação</h2>
                 <p class="text-lg text-gray-600 mb-12 reveal" style="transition-delay: 200ms;">Submeta a sua solicitação para avaliação pela nossa curadoria.</p>
@@ -225,7 +299,7 @@
                 <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="TikTok"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.8-1.59-1.87-2.32-4.2-1.86-6.33.32-1.45 1.11-2.77 2.11-3.8.75-.75 1.6-1.36 2.48-1.82.01-3.34.01-6.67.02-10.01.04-1.51.52-3.01 1.4-4.25C10.15 1.01 11.32.33 12.525.02zM15.41 6.94c-1.11-.02-2.22-.01-3.33-.02v1.55c1.11.01 2.22.01 3.33.02-.04-1.02-.01-1.55.01-1.55z"/></svg></a>
                 <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="LinkedIn"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-8.29 13.29V9.42H8.29v6.87h2.42zm-1.21-7.86a1.43 1.43 0 1 0 0-2.86 1.43 1.43 0 0 0 0 2.86zM16.71 16.29h-2.42v-3.4c0-.81-.02-1.86-1.13-1.86-1.13 0-1.31.89-1.31 1.8v3.46H9.42V9.42h2.32v1.06h.03c.32-.6 1.11-1.23 2.29-1.23 2.45 0 2.9 1.61 2.9 3.7v4.34z"/></svg></a>
             </div>
-            <p class="text-sm text-gray-500 mt-10">&copy; <span id="year"></span> Mellie. Todos os direitos reservados.</p>
+            <p class="text-sm text-gray-500 mt-10">© <span id="year"></span> Mellie. Todos os direitos reservados.</p>
         </div>
     </footer>
 
